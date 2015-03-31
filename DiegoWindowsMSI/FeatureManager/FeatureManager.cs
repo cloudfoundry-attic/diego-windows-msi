@@ -62,6 +62,7 @@ namespace FeatureManager
             var javaScriptSerializer = new System.Web.Script.Serialization.JavaScriptSerializer();
             string jsonString = javaScriptSerializer.Serialize(parameters);
             var configFile = System.IO.Path.GetFullPath(System.IO.Path.Combine(Context.Parameters["assemblypath"], "..", "parameters.json"));
+
             System.IO.File.WriteAllText(configFile, jsonString);
         }
     }

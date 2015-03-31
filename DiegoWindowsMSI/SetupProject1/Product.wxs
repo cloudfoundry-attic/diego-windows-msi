@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:adx="http://schemas.add-in-express.com/wixdesigner">
+  <Product Id="*" Name="SetupProject1" Language="1033" Version="1.0.0.0" Manufacturer="Bye" UpgradeCode="44022ec4-b0e2-4ec9-a66b-9eaf210ed154">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <CustomAction Id="DIRCA_TARGETDIR" Property="TARGETDIR" Value="[ProgramFilesFolder]\[Manufacturer]\[ProductName]" Execute="firstSequence" />
+    <CustomAction Id="_E5D0F4C2_2AD8_483C_9A7E_CE4645B04987.Install" Execute="deferred" BinaryKey="InstallUtil" DllEntry="ManagedInstall" adx:VSName="Primary Output from ConsulService" />
+    <CustomAction Id="_E5D0F4C2_2AD8_483C_9A7E_CE4645B04987.Install.SetProperty" Property="_E5D0F4C2_2AD8_483C_9A7E_CE4645B04987.Install" Value="/installtype=notransaction /action=install /LogFile= /CONTAINERIZER_USERNAME=[CONTAINERIZER_USERNAME] /CONTAINERIZER_PASSWORD=[CONTAINERIZER_PASSWORD] /EXTERNAL_IP=[EXTERNAL_IP] /CONSUL_IPS=[CONSUL_IPS] /ETCD_CLUSTER=[ETCD_CLUSTER] /MACHINE_NAME=[MACHINE_NAME] &quot;[#_EF721962_DB99_4012_84F3_604F612940DE]&quot; &quot;[VSDFxConfigFile]&quot;" adx:VSName="Primary Output from ConsulService" />
+    <Upgrade Id="44022ec4-b0e2-4ec9-a66b-9eaf210ed154">
+    </Upgrade>
+    <InstallUISequence>
+      <Custom Action="VSDCA_AllUsers" After="CostInitialize"><![CDATA[Installed="" AND NOT RESUME AND ALLUSERS=1]]></Custom>
+      <Custom Action="DIRCA_TARGETDIR" Before="CostInitialize"><![CDATA[TARGETDIR=""]]></Custom>
+    </InstallUISequence>
+    <CustomAction Id="VSDCA_AllUsers" Property="ALLUSERS" Value="" Execute="firstSequence" />
+    <Binary Id="InstallUtil" SourceFile="Resources\Binary\InstallUtil" />
+    <Binary Id="ADXDPCADLL" SourceFile="Resources\Binary\adxdpca.dll" />
+    <Binary Id="InstallUtilConfig" SourceFile="Resources\Binary\InstallUtilConfig" />
+    <CustomAction Id="CA_CreateConfig" BinaryKey="ADXDPCADLL" DllEntry="GetConfig" />
+    <CustomAction Id="_B62C7940_8C17_40F5_8779_E9D0A2484EDE.Install" Execute="deferred" BinaryKey="InstallUtil" DllEntry="ManagedInstall" adx:VSName="Primary Output from FeatureManager" />
+    <CustomAction Id="_B62C7940_8C17_40F5_8779_E9D0A2484EDE.Install.SetProperty" Property="_B62C7940_8C17_40F5_8779_E9D0A2484EDE.Install" Value="/installtype=notransaction /action=install /LogFile= /CONTAINERIZER_USERNAME=[CONTAINERIZER_USERNAME] /CONTAINERIZER_PASSWORD=[CONTAINERIZER_PASSWORD] /EXTERNAL_IP=[EXTERNAL_IP] /CONSUL_IPS=[CONSUL_IPS] /ETCD_CLUSTER=[ETCD_CLUSTER] /MACHINE_NAME=[MACHINE_NAME] /STACK=[STACK] /ZONE=[ZONE] /LOGGREGATOR_SHARED_SECRET=[LOGGREGATOR_SHARED_SECRET] /CF_ETCD_CLUSTER=[CF_ETCD_CLUSTER] &quot;[#_5C858FD6_4FB5_4578_AB84_D40E1D007E27]&quot; &quot;[VSDFxConfigFile]&quot;" adx:VSName="Primary Output from FeatureManager" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate />
+    <Feature Id="ProductFeature" Title="SetupProject1" Level="1">
+      <ComponentGroupRef Id="FeatureManager.Binaries" />
+      <ComponentGroupRef Id="ConsulService.Binaries" />
+      <ComponentRef Id="comp_20F123C1_CAAD_4946_B73E_3AFC3DD2E16F" />
+      <ComponentRef Id="comp_8ECDCBE3_B6A2_44E6_A1C7_45B118C196F1" />
+      <ComponentRef Id="comp_DA705697_7B84_4FCC_A5CF_173FA97557B3" />
+    </Feature>
+    <InstallExecuteSequence>
+      <Custom Action="CA_CreateConfig" Sequence="1" />
+      <Custom Action="_B62C7940_8C17_40F5_8779_E9D0A2484EDE.Install.SetProperty" After="StartServices"><![CDATA[$com_5C858FD6_4FB5_4578_AB84_D40E1D007E27>2]]></Custom>
+      <Custom Action="_B62C7940_8C17_40F5_8779_E9D0A2484EDE.Install" After="_B62C7940_8C17_40F5_8779_E9D0A2484EDE.Install.SetProperty"><![CDATA[$com_5C858FD6_4FB5_4578_AB84_D40E1D007E27>2]]></Custom>
+      <Custom Action="_E5D0F4C2_2AD8_483C_9A7E_CE4645B04987.Install.SetProperty" After="_B62C7940_8C17_40F5_8779_E9D0A2484EDE.Install"><![CDATA[$com_EF721962_DB99_4012_84F3_604F612940DE>2]]></Custom>
+      <Custom Action="_E5D0F4C2_2AD8_483C_9A7E_CE4645B04987.Install" After="_E5D0F4C2_2AD8_483C_9A7E_CE4645B04987.Install.SetProperty"><![CDATA[$com_EF721962_DB99_4012_84F3_604F612940DE>2]]></Custom>
+      <Custom Action="VSDCA_AllUsers" After="CostInitialize"><![CDATA[Installed="" AND NOT RESUME AND ALLUSERS=1]]></Custom>
+      <Custom Action="DIRCA_TARGETDIR" Before="CostInitialize"><![CDATA[TARGETDIR=""]]></Custom>
+    </InstallExecuteSequence>
+    <UI>
+      <Error Id="1001"><![CDATA[Error [1]. [2]]]></Error>
+    </UI>
+    <AdminUISequence>
+      <Custom Action="DIRCA_TARGETDIR" Before="CostInitialize"><![CDATA[TARGETDIR=""]]></Custom>
+    </AdminUISequence>
+  </Product>
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Component Id="comp_20F123C1_CAAD_4946_B73E_3AFC3DD2E16F" Guid="1C9DBBF2-3016-4348-8726-BF4A67A92917" Permanent="no" SharedDllRefCount="no" Transitive="no">
+        <File Id="_141D8D40_C824_4BB0_ADCD_099F25D9B65F" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="ServiceConfigurator.dll" Source="..\ServiceConfigurator\bin\Debug\ServiceConfigurator.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="comp_8ECDCBE3_B6A2_44E6_A1C7_45B118C196F1" Guid="36DFFF5E-0393-4C2A-9C0D-BA3DA90FE722" Permanent="no" SharedDllRefCount="no" Transitive="no">
+        <File Id="_C19E88F7_E305_41FF_82DF_BB64228FFAB5" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="consul.exe" Source="..\DiegoWindowsMSI\go-executables\consul.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="comp_DA705697_7B84_4FCC_A5CF_173FA97557B3" Guid="C25C70CF-50F5-4E1F-AFE3-054B5ED515E4" Permanent="no" SharedDllRefCount="no" Transitive="no">
+        <File Id="_10D493CB_1B2B_4208_9C9B_5648E1186064" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="executor.exe" Source="..\DiegoWindowsMSI\go-executables\executor.exe" KeyPath="yes" />
+      </Component>
+      <Directory Id="FeatureManager.Binaries" />
+      <Directory Id="ConsulService.Binaries" />
+    </Directory>
+  </Fragment>
+  <Fragment>
+  </Fragment>
+</Wix>
