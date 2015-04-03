@@ -1,0 +1,1 @@
+"%WIX%\bin\heat.exe" dir "src\github.com\cloudfoundry-incubator\containerizer\Containerizer\bin\."  -var var.Containerizer.TargetDir -dr Containerizer.Binaries -cg ContainerizerBinaries -gg -scom -sreg -sfrag -srd -o "DiegoWindowsMSI\SetupProject1\Containerizer.Binaries.wxs"

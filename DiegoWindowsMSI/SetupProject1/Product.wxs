@@ -19,13 +19,17 @@
     <CustomAction Id="_B62C7940_8C17_40F5_8779_E9D0A2484EDE.Install" Execute="deferred" BinaryKey="InstallUtil" DllEntry="ManagedInstall" adx:VSName="Primary Output from FeatureManager" />
     <CustomAction Id="_B62C7940_8C17_40F5_8779_E9D0A2484EDE.Install.SetProperty" Property="_B62C7940_8C17_40F5_8779_E9D0A2484EDE.Install" Value="/installtype=notransaction /action=install /LogFile= /CONTAINERIZER_USERNAME=[CONTAINERIZER_USERNAME] /CONTAINERIZER_PASSWORD=[CONTAINERIZER_PASSWORD] /EXTERNAL_IP=[EXTERNAL_IP] /CONSUL_IPS=[CONSUL_IPS] /ETCD_CLUSTER=[ETCD_CLUSTER] /MACHINE_NAME=[MACHINE_NAME] /STACK=[STACK] /ZONE=[ZONE] /LOGGREGATOR_SHARED_SECRET=[LOGGREGATOR_SHARED_SECRET] /CF_ETCD_CLUSTER=[CF_ETCD_CLUSTER] &quot;[#_5C858FD6_4FB5_4578_AB84_D40E1D007E27]&quot; &quot;[VSDFxConfigFile]&quot;" adx:VSName="Primary Output from FeatureManager" />
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-    <MediaTemplate />
+    <MediaTemplate EmbedCab="yes" />
     <Feature Id="ProductFeature" Title="SetupProject1" Level="1">
       <ComponentGroupRef Id="FeatureManager.Binaries" />
       <ComponentGroupRef Id="ConsulService.Binaries" />
       <ComponentRef Id="comp_20F123C1_CAAD_4946_B73E_3AFC3DD2E16F" />
       <ComponentRef Id="comp_8ECDCBE3_B6A2_44E6_A1C7_45B118C196F1" />
       <ComponentRef Id="comp_DA705697_7B84_4FCC_A5CF_173FA97557B3" />
+      <ComponentRef Id="comp_F3E55903_2566_4F11_9431_9807E72851A3" />
+      <ComponentGroupRef Id="ContainerizerService.Binaries" />
+      <ComponentGroupRef Id="Containerizer.Binaries" />
+      <ComponentRef Id="comp_7D8F21BD_61C7_4591_80FB_E7448B5BB615" />
     </Feature>
     <InstallExecuteSequence>
       <Custom Action="CA_CreateConfig" Sequence="1" />
@@ -54,8 +58,30 @@
       <Component Id="comp_DA705697_7B84_4FCC_A5CF_173FA97557B3" Guid="C25C70CF-50F5-4E1F-AFE3-054B5ED515E4" Permanent="no" SharedDllRefCount="no" Transitive="no">
         <File Id="_10D493CB_1B2B_4208_9C9B_5648E1186064" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="executor.exe" Source="..\DiegoWindowsMSI\go-executables\executor.exe" KeyPath="yes" />
       </Component>
+      <Component Id="comp_F3E55903_2566_4F11_9431_9807E72851A3" Guid="6275912C-CDF2-449E-AB45-1C0ABAA6E39A" Permanent="no" SharedDllRefCount="no" Transitive="no">
+      </Component>
+      <Component Id="comp_7D8F21BD_61C7_4591_80FB_E7448B5BB615" Guid="EEA84DAE-024A-462B-8527-5724E0A3B842" Permanent="no" SharedDllRefCount="no" Transitive="no">
+        <File Id="_BC0960AB_DB6A_42DA_8296_1B8D34EDC235" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="Autofac.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\Autofac.3.5.2\lib\net40\Autofac.dll" KeyPath="yes" />
+        <File Id="_DB45A0D1_DB91_45ED_B1AF_A20643707245" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="Autofac.Integration.Mvc.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\Autofac.Mvc5.3.3.3\lib\net45\Autofac.Integration.Mvc.dll" />
+        <File Id="_F3BFFEC8_D763_46DA_8F36_088C9B8DDA76" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="Autofac.Integration.Mvc.Owin.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\Autofac.Mvc5.Owin.3.1.0\lib\net45\Autofac.Integration.Mvc.Owin.dll" />
+        <File Id="_96B3CCFE_033D_44BE_B07E_E1796D69534E" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="Autofac.Integration.Owin.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\Autofac.Owin.3.1.0\lib\net45\Autofac.Integration.Owin.dll" />
+        <File Id="_B5399F7D_5851_4846_9CE9_8AEA0DF2B9A8" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="Autofac.Integration.WebApi.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\Autofac.WebApi2.3.4.0\lib\net45\Autofac.Integration.WebApi.dll" />
+        <File Id="_C6E18E65_C4CA_47BE_808F_BA6B196BAD1B" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="Autofac.Integration.WebApi.Owin.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\Autofac.WebApi2.Owin.3.2.0\lib\net45\Autofac.Integration.WebApi.Owin.dll" />
+        <File Id="_6206D350_CC7B_4905_9294_4664F26FEC1C" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="IronFoundry.Container.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\IronFoundry.Container.0.20150213.165802-DevLocal\lib\net45\IronFoundry.Container.dll" />
+        <File Id="_54487B55_853D_4439_AD7E_D7CD703E1F5F" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="IronFoundry.Container.Host.exe" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\IronFoundry.Container.0.20150213.165802-DevLocal\lib\net45\IronFoundry.Container.Host.exe" />
+        <File Id="_BC4B7091_F335_4DE9_99EF_0B5980AB2556" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="IronFoundry.Container.Shared.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\IronFoundry.Container.0.20150213.165802-DevLocal\lib\net45\IronFoundry.Container.Shared.dll" />
+        <File Id="_CAB44753_B0CB_43ED_BE4B_063B57CC2996" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="Microsoft.WebSockets.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\Microsoft.WebSockets.0.2.3\lib\net45\Microsoft.WebSockets.dll" />
+        <File Id="_5D060CC0_1FAC_436B_B62A_26F5340926AB" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="NDesk.Options.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\NDesk.Options.0.2.1\lib\NDesk.Options.dll" />
+        <File Id="_EC53C3CE_8B29_4DA8_AF2A_1291EC0DC832" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="Newtonsoft.Json.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll" />
+        <File Id="_BB13D320_3EF2_4935_B52C_1D87B47B849B" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="NLog.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\NLog.3.2.0.0\lib\net45\NLog.dll" />
+        <File Id="_ACCD5B94_C8ED_4D4F_9076_331CF8F942C5" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="Owin.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\Owin.1.0\lib\net40\Owin.dll" />
+        <File Id="_487429D8_82BD_449A_A66A_9A525F783651" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="Owin.WebSocket.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\Owin.WebSocket.1.3.1\lib\net45\Owin.WebSocket.dll" />
+        <File Id="_BE825F2D_87E2_4562_822E_13144C0E4397" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="SharpCompress.dll" Source="..\..\src\github.com\cloudfoundry-incubator\containerizer\packages\p3-sharpcompress.0.10.5.2\lib\net40\SharpCompress.dll" />
+      </Component>
       <Directory Id="FeatureManager.Binaries" />
       <Directory Id="ConsulService.Binaries" />
+      <Directory Id="Containerizer.Binaries" />
+      <Directory Id="ContainerizerService.Binaries" />
     </Directory>
   </Fragment>
   <Fragment>
