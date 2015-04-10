@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 chruby 2.1.2
 gem install bundler --no-rdoc --no-ri
