@@ -54,7 +54,7 @@ pushd src\github.com\cloudfoundry-incubator\containerizer || exit /b 1
 popd
 
 for /f "tokens=*" %%a in ('git rev-parse --short HEAD') do (
-    set VERSION=%%a
+    set VERSION=%APPVEYOR_BUILD_VERSION%-%%a
 )
 
 pushd DiegoWindowsMSI || exit /b 1
