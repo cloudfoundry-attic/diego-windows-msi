@@ -24,6 +24,7 @@ if ARGV[0] =~/DiegoWindowsMSI-(\d+(?:\.(\d+))*)-([0-9a-f]+).msi$/
   MSI_DOWNLOAD_URL = "https://s3.amazonaws.com/diego-windows-msi/output/DiegoWindowsMSI-#{BUILD_VERSION}-#{EXPECTED_SHA}.msi"
 else
   puts "USAGE: Please provide msi filename"
+  puts ARGV[0]
   exit 1
 end
 
