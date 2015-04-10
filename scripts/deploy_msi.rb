@@ -18,6 +18,15 @@ options = {
   keys: ["#{DEPLOYMENTS_RUNTIME}/keypair/id_rsa_bosh"]
 }
 
+if ARGV[0] =~/DiegoWindowsMSI-(\d+(?:\.(\d+))*)-([0-9a-f]+).msi$/
+  BUILD_VERSION = $1
+  EXPECTED_SHA = $3
+  MSI_DOWNLOAD_URL = "https://s3.amazonaws.com/diego-windows-msi/output/DiegoWindowsMSI-#{BUILD_VERSION}-#{EXPECTED_SHA}.msi"
+else
+  puts "USAGE: Please provide msi filename"
+  exit 1
+end
+
 # Figure out the sha of the msi being installed using the download url
 # or GO_REVISION_DIEGO_WINDOWS_MSI environment variable. The env.
 # variable is set by gocd since diego-windows-msi is one of the
