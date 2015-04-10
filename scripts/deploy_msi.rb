@@ -28,32 +28,6 @@ else
   exit 1
 end
 
-# Figure out the sha of the msi being installed using the download url
-# or GO_REVISION_DIEGO_WINDOWS_MSI environment variable. The env.
-# variable is set by gocd since diego-windows-msi is one of the
-# Materials in the gocd job.
-def expected_sha
-  if sha_env = ENV['GO_REVISION_DIEGO_WINDOWS_MSI']
-    sha_env[0..6]
-  elsif msi_download_url =~ /DiegoWindowsMSI-([0-9a-f]+).msi$/
-    $1
-  else
-    raise "Pass either a download url or set GO_REVISION_DIEGO_WINDOWS_MSI"
-  end
-end
-
-
-# Return the msi download url, using either the first argument or the
-# GO_DEPENDENCY_LABEL_DIEGOMSI environment variable (which is the gocd
-# job id of the last DiegoWindowsMSI build)
-def msi_download_url
-  url = ARGV[0]
-  # return the argument if it was provided and is valid
-  return url if url && url =~ /^http/
-
-  "https://s3.amazonaws.com/diego-windows-msi/output/DiegoWindowsMSI-#{expected_sha}.msi"
-end
-
 msi_location="c:\\diego.msi"
 block = ->(ssh) do
   hostname = ssh.exec!("hostname").chomp
@@ -63,8 +37,8 @@ block = ->(ssh) do
   puts ssh.exec!("msiexec /norestart /passive /x #{msi_location}")
   ssh.exec!("del /Y #{msi_location}")
 
-  puts "Downloading msi from #{msi_download_url}"
-  puts ssh.exec!("powershell /C wget #{msi_download_url} -OutFile #{msi_location}")
+  puts "Downloading msi from #{MSI_DOWNLOAD_URL}"
+  puts ssh.exec!("powershell /C wget #{MSI_DOWNLOAD_URL} -OutFile #{msi_location}")
 
   puts "Install"
   puts ssh.exec!("msiexec /norestart /passive /i #{msi_location} CONTAINERIZER_USERNAME=.\\Administrator CONTAINERIZER_PASSWORD=#{ADMIN_PASS} EXTERNAL_IP=#{MACHINE_IP} CONSUL_IPS=#{CONSUL_IPS} ETCD_CLUSTER=#{ETCD_CLUSTER} CF_ETCD_CLUSTER=#{CF_ETCD_CLUSTER} LOGGREGATOR_SHARED_SECRET=loggregator-secret MACHINE_NAME=#{hostname} STACK=windows2012R2 ZONE=#{ZONE}")
@@ -73,11 +47,11 @@ block = ->(ssh) do
   actual_sha = output.chomp.split(/\s+/).last
   puts actual_sha.inspect
 
-  if actual_sha != expected_sha
-    puts "Installation failed: expected #{expected_sha}, got #{actual_sha}"
+  if actual_sha != EXPECTED_SHA
+    puts "Installation failed: expected #{EXPECTED_SHA}, got #{actual_sha}"
     exit(1)
   end
-  puts "Installation succeeded, #{expected_sha} == #{actual_sha}"
+  puts "Installation succeeded, #{EXPECTED_SHA} == #{actual_sha}"
 end
 
 if JUMP_MACHINE_IP
