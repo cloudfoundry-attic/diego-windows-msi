@@ -34,4 +34,5 @@ branches:
   only:
   - master
   - /^appveyor.*/
+  - /appveyor/
   - appveyor_networkblocking
