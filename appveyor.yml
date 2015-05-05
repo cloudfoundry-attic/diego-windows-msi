@@ -9,8 +9,7 @@ environment:
 cache: C:\Users\appveyor\AppData\Local\NuGet\Cache
 build_script:
 - git submodule update --init --recursive
-- powershell /C set-netfirewallprofile -all -DefaultInboundAction Allow -DefaultOutboundAction Block
-- powershell /C "get-netfirewallprofile | select name,DefaultInboundAction,DefaultOutBoundAction | ft -a"
+- powershell "& .\scripts\setup_firewall.ps1"
 - scripts\make.bat
 test: off
 artifacts:
