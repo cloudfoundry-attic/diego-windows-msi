@@ -63,7 +63,7 @@ pushd DiegoWindowsMSI || exit /b 1
   rmdir /S /Q packages
   nuget restore || exit /b 1
   echo SHA: %VERSION% > RELEASE_SHA
-  devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || exit /b 1
+  devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || exit /b 1
   xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\output\ || exit /b 1
 popd
 move /Y output\DiegoWindowsMSI.msi output\DiegoWindowsMSI-%VERSION%.msi || exit /b 1
