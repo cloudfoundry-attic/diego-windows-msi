@@ -18,9 +18,20 @@ for /f "tokens=*" %%a in ('git rev-parse --short HEAD') do (
     set VERSION=%%a
 )
 
+REM  pushd src\github.com\cloudfoundry-incubator\garden-windows\Containerizer || exit /b 1
+  REM  :: call make.bat
+  REM  rmdir /S /Q packages
+  REM  nuget restore || exit /b 1
+
+  REM  pushd IronFrame || exit /b 1
+    REM  rmdir /S /Q packages
+    REM  nuget restore || exit /b 1
+  REM  popd
+REM  popd
+
 pushd DiegoWindowsMSI || exit /b 1
   rmdir /S /Q packages
-  nuget restore || exit /b 1
+  REM  nuget restore || exit /b 1
   echo SHA: %VERSION% > RELEASE_SHA
   devenv DiegoWindowsMSI\DiegoWindowsMSI.vdproj /build "Release" || exit /b 1
   xcopy DiegoWindowsMSI\Release\DiegoWindowsMSI.msi ..\output\ || exit /b 1
