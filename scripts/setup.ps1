@@ -99,13 +99,22 @@
         $admins = New-Object System.Security.Principal.NTAccount("Administrators")
         $adminsSid = $admins.Translate([System.Security.Principal.SecurityIdentifier])
 
-        # $currentUser = New-Object System.Security.Principal.NTAccount($env:username)
-        # $currentUserSid = $currentUser.Translate([System.Security.Principal.SecurityIdentifier])
-        New-NetFirewallRule -Name "CFAllowAdmins" -DisplayName "Allow admins" `
+        $LocalUser = "D:(A;;CC;;;$adminsSid)"
+        $otherAdmins = Get-WmiObject win32_groupuser | 
+          Where-Object { $_.GroupComponent -match 'administrators' } |
+          ForEach-Object { [wmi]$_.PartComponent }
+
+        foreach($admin in $otherAdmins)
+        {
+          $ntAccount = New-Object System.Security.Principal.NTAccount($admin.Name)
+          $sid = $ntAccount.Translate([System.Security.Principal.SecurityIdentifier]).Value
+          $LocalUser = $LocalUser + "(A;;CC;;;$sid)"
+        }
+        New-NetFirewallRule -Name CFAllowAdmins -DisplayName "Allow admins" `
           -Description "Allow admin users" -RemotePort Any `
           -LocalPort Any -LocalAddress Any -RemoteAddress Any `
           -Enabled True -Profile Any -Action Allow -Direction Outbound `
-          -LocalUser "D:(A;;CC;;;$adminsSid)"
+          -LocalUser $LocalUser
 
         Set-NetFirewallProfile -All -DefaultInboundAction Allow -DefaultOutboundAction Block -Enabled True
       }
@@ -115,4 +124,4 @@
 }
 
 CFWindows
-Start-DscConfiguration -Wait -Path .\CFWindows
+Start-DscConfiguration -Wait -Path .\CFWindows -Force -Verbose
