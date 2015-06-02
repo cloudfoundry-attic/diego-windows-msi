@@ -123,5 +123,6 @@
   }
 }
 
+Enable-PSRemoting -Force $true
 CFWindows
 Start-DscConfiguration -Wait -Path .\CFWindows -Force -Verbose
