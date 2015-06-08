@@ -1,10 +1,19 @@
 ---
 platform: linux
-image: docker:///ubuntu#14.04
 inputs:
 - name: msi-file
+- name: diego-windows-msi
 run:
-  path: bash
+  path: ruby
   args:
-    - '-c'
-    - 'echo "Hi"'
+    - diego-windows-msi/scripts/deploy_msi.rb
+params:
+  DEPLOYMENTS_RUNTIME: {{DEPLOYMENTS_RUNTIME}}
+  ADMIN_PASS: {{ADMIN_PASS}}
+  MACHINE_IP: 10.10.11.19
+  CONSUL_IPS: 10.10.2.37
+  JUMP_MACHINE_IP: 54.84.34.184
+  ETCD_CLUSTER: http://10.10.5.10:4001
+  CF_ETCD_CLUSTER: http://10.10.2.20:4001
+  REDUNDANCY_ZONE: z1
+  LOGGREGATOR_SHARED_SECRET: aPtGRw4E1hJ7W06QpluA20K4NueCQm
