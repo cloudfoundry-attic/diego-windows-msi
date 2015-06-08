@@ -1,0 +1,7 @@
+---
+platform: linux
+image: docker:///ubuntu#14.04
+inputs:
+- name: msi-file
+run:
+  path: echo "Hi"
