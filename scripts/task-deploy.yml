@@ -1,6 +1,6 @@
 ---
 platform: linux
-image: docker:///ruby#2.1.2-slim
+image: docker:///ruby#2.2.2-slim
 inputs:
 - name: msi-file
 - name: diego-windows-msi
