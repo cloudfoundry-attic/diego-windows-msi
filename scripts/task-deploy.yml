@@ -8,8 +8,6 @@ run:
   args:
     - diego-windows-msi/scripts/deploy_msi.rb
 params:
-  DEPLOYMENTS_RUNTIME: {{DEPLOYMENTS_RUNTIME}}
-  ADMIN_PASS: {{ADMIN_PASS}}
   MACHINE_IP: 10.10.11.19
   CONSUL_IPS: 10.10.2.37
   JUMP_MACHINE_IP: 54.84.34.184
