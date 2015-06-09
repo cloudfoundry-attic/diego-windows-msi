@@ -6,7 +6,7 @@ inputs:
 - name: diego-windows-msi
 run:
   path: diego-windows-msi/scripts/run_ruby.sh
-  args: [diego-windows-msi/scripts/deploy_msi.rb]
+  args: [diego-windows-msi/scripts/deploy_msi.rb msi-file]
 params:
   MACHINE_IP: 10.10.11.19
   CONSUL_IPS: 10.10.2.37

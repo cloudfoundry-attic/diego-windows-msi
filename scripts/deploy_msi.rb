@@ -38,7 +38,7 @@ end
 # GO_DEPENDENCY_LABEL_DIEGOMSI environment variable (which is the gocd
 # job id of the last DiegoWindowsMSI build)
 def msi_download_url
-  url = ARGV[0]
+  url = File.read "#{ARGV[0]}/url"
   # return the argument if it was provided and is valid
   return url if url && url =~ /^http/
 
