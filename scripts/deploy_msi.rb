@@ -16,7 +16,7 @@ LOGGREGATOR_SHARED_SECRET = ENV['LOGGREGATOR_SHARED_SECRET'] or raise "Please se
 options = {
   auth_methods: ["publickey"],
   use_agent: false,
-  keys: ["#{DEPLOYMENTS_RUNTIME}/keypair/id_rsa_bosh"]
+  key_data: [ENV['JUMP_MACHINE_SSH_KEY']]
 }
 
 # Figure out the sha of the msi being installed using the download url
