@@ -3,7 +3,6 @@
 require 'net/ssh'
 require 'net/ssh/gateway'
 
-DEPLOYMENTS_RUNTIME = ENV['DEPLOYMENTS_RUNTIME'] or raise "Please set env var DEPLOYMENTS_RUNTIME"
 ADMIN_PASS = ENV['ADMIN_PASS'] or raise "Please set env var ADMIN_PASS"
 JUMP_MACHINE_IP = ENV['JUMP_MACHINE_IP']
 MACHINE_IP = ENV['MACHINE_IP'] or raise "Please set env var MACHINE_IP"
