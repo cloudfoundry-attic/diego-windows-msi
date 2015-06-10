@@ -5,9 +5,3 @@ inputs:
 - name: nora
 run:
   path: nora/scripts/run_wats.sh
-params:
-  API: api.ketchup.cf-app.com
-  ADMIN_USER: admin
-  ADMIN_PASSWORD: {{ADMIN_PASS}}
-  APPS_DOMAIN: ketchup.cf-app.com
-  SOCKET_ADDRESS_FOR_SECURITY_GROUP_TEST: 10.10.5.10:4001
