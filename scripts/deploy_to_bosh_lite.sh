@@ -9,7 +9,7 @@ cd `dirname $0`
 
 export ADMIN_PASS=joE3Jj5Fex!
 export REDUNDANCY_ZONE=z1
-export MACHINE_IP=172.16.234.139
+export MACHINE_IP=172.16.234.176
 export CONSUL_IPS=10.244.0.54
 export ETCD_CLUSTER=http://10.244.16.2:4001
 export CF_ETCD_CLUSTER=http://10.244.0.42:4001
