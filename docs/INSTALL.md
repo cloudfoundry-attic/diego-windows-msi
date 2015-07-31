@@ -19,10 +19,10 @@ The script will enable the required Windows features
 
 ## Install the MSI
 
-The following instructions assume that the msi was downloaded to `C:\diego.msi`
+The following instructions assume that the msi was downloaded to `c:\temp\Diego_Windows_v0_148.msi`
 
 ```
-msiexec /norestart /i c:\diego.msi ^
+msiexec /norestart /i c:\temp\Diego_Windows_v0_148.msi ^
           ADMIN_USERNAME=[Username with admin privileges] ^
           ADMIN_PASSWORD=[Previous user password] ^
           CONSUL_IPS=[Comma-separated IP addresses of consul agents from bosh deploy of CF] ^
@@ -38,7 +38,7 @@ msiexec /norestart /i c:\diego.msi ^
 An example would be:
 
 ```
-msiexec /norestart /i c:\temp\Diego_Windows_v0_148.msii ^
+msiexec /norestart /i c:\temp\Diego_Windows_v0_148.msi ^
           ADMIN_USERNAME=Administrator ^
           ADMIN_PASSWORD=secretpassword ^
           CONSUL_IPS=10.10.5.11,10.10.6.11,10.10.7.11 ^
