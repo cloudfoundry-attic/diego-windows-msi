@@ -102,7 +102,7 @@
 	url = https://github.com/hydrogen18/stoppableListener
 [submodule "src/github.com/cloudfoundry-incubator/windows_app_lifecycle"]
 	path = src/github.com/cloudfoundry-incubator/windows_app_lifecycle
-	url = https://github.com/cloudfoundry-incubator/windows_app_lifecycle.git
+	url = git@github.com:cloudfoundry-incubator/windows_app_lifecycle.git
 [submodule "src/github.com/pivotal-cf-experimental/nora"]
 	path = src/github.com/pivotal-cf-experimental/nora
 	url = https://github.com/pivotal-cf-experimental/nora.git
@@ -142,3 +142,6 @@
 [submodule "src/github.com/ugorji/go"]
 	path = src/github.com/ugorji/go
 	url = https://github.com/ugorji/go
+[submodule "src/github.com/cloudfoundry-incubator/diego-ssh"]
+	path = src/github.com/cloudfoundry-incubator/diego-ssh
+	url = https://github.com/cloudfoundry-incubator/diego-ssh
