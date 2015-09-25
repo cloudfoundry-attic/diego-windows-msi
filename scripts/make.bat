@@ -44,6 +44,7 @@ SET GOBIN=%CD%\DiegoWindowsMSI\DiegoWindowsMSI\go-executables
 pushd src\github.com\cloudfoundry\loggregator || exit /b 1
   SET OLD_GOPATH=%GOPATH%
   SET GOPATH=%CD%
+  ginkgo -r -noColor src\metron || exit /b 1
   go install metron || exit /b 1
   SET GOPATH=%OLD_GOPATH%
 popd
