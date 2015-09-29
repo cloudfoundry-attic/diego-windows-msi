@@ -44,6 +44,7 @@ SET GOBIN=%CD%\DiegoWindowsMSI\DiegoWindowsMSI\go-executables
 pushd src\github.com\cloudfoundry\loggregator || exit /b 1
   SET OLD_GOPATH=%GOPATH%
   SET GOPATH=%CD%
+  ginkgo -r -noColor src\metron || exit /b 1
   go install metron || exit /b 1
   SET GOPATH=%OLD_GOPATH%
 popd
@@ -67,7 +68,7 @@ ginkgo -r -noColor src/github.com/cloudfoundry-incubator/garden-windows || exit 
 :: windows cmd doesn't like quoting arguments, use -skip=foo.bar instead of -skip='foo bar'
 :: we use the dot operator to match anything, -skip expects a regex
 ginkgo -r -noColor src/github.com/cloudfoundry-incubator/executor || exit /b 1
-ginkgo -skip=when.an.interrupt.signal.is.sent.to.the.representative^|should.not.exit,.but.keep.trying.to.maintain.presence.at.the.same.ID^|The.Rep.Evacuation.when.it.has.running.LRP.containers^|when.a.Ping.request.comes.in -noColor src/github.com/cloudfoundry-incubator/rep || exit /b 1
+ginkgo -noColor src/github.com/cloudfoundry-incubator/rep || exit /b 1
 
 SET GOPATH=%CD%
 echo F | xcopy bin\generate.exe output\generate-%VERSION%.exe || exit /b 1
